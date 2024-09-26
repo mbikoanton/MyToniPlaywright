@@ -19,9 +19,9 @@ public class LulaUITests {
 
     @BeforeClass
     public void setup() {
-        // Set up Playwright and launch the browser
+        // Set up Playwright and launch the browser in headless mode
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
 
         // Create a new browser context with no viewport size to simulate maximized window
         BrowserContext context = browser.newContext(new Browser.NewContextOptions().setViewportSize(null));
@@ -42,8 +42,8 @@ public class LulaUITests {
     @Test
     public void testBusinessAccountSignupFlow() {
         // Click 'Get Started' and fill the form with email and password
-        //page.click("text='Get Started'");
-        page.locator("//*[@id='home-hero']/div/div[1]/div[1]/div/a").click();
+        page.click("text='Get Started'");
+        //page.locator("//*[@id='home-hero']/div/div[1]/div[1]/div/a").click();
         page.locator("//*[@id='root']/div/div/section/div/div[2]/section/form/div[1]/div[2]/input").fill(randomEmail);
         page.locator("//*[@id='root']/div/div/section/div/div[2]/section/form/div[2]/div[2]/input").fill(password);
         page.locator("//*[@id='root']/div/div/section/div/div[2]/section/form/button").click();
