@@ -21,18 +21,32 @@ jobs:
         with:
           java-version: '22'
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      - name: Install dependencies for Playwright
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwoff1 \
+            libopus0 \
+            libvpx7 \
+            libevent-2.1-7 \
+            libflite1 \
+            libgstreamer1.0-0 \
+            libgstreamer-plugins-base1.0-0 \
+            libgstreamer-gl1.0-0 \
+            libgstreamer-video1.0-0 \
+            libgstreamer-fft1.0-0 \
+            libgstreamer-pbutils1.0-0 \
+            libgstreamer-audio1.0-0 \
+            libgstreamer-tag1.0-0 \
+            libharfbuzz-icu0 \
+            libhyphen0 \
+            libgles2-mesa \
+            x264
 
       - name: Install Maven Dependencies
         run: mvn install -DskipTests
 
-      - name: Run Playwright Tests with xvfb
+      - name: Run Playwright Tests
         run: xvfb-run --auto-servernum -- mvn test
 
       - name: Generate Test Report
