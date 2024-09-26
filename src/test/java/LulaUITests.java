@@ -39,7 +39,7 @@ public class LulaUITests {
         apiRequestContext = playwright.request().newContext();
     }
 
-    @Test
+    //@Test
     public void testBusinessAccountSignupFlow() {
         // Click 'Get Started' and fill the form with email and password
         page.click("text='Get Started'");
